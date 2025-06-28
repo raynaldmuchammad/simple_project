@@ -8,7 +8,6 @@ This project is a starting point for a Flutter application.
 
 - Architecture: BLoC (Business Logic Component)
 - Boilerplate project based on Feature-First Clean Architecture (FFCA)
--
 
 A few resources to get you started if this is your first cloning Flutter project:
 
@@ -16,9 +15,10 @@ A few resources to get you started if this is your first cloning Flutter project
 - Open project using Android Studio / Vs Code
 - Run command package build
 ```bash
-flutter pub run build_runner build --delete-conflicting-outputs
+flutter pub get
 ```
 - Run command build runner
 ```bash
- flutter pub run build_runner build
+flutter pub run build_runner build --delete-conflicting-outputs
 ```
+- Run project to device

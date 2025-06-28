@@ -1,5 +1,7 @@
+import 'dart:developer';
 
 import 'package:simple_project/component/data/base_repository.dart';
+import 'package:simple_project/component/data/models/book.dart';
 import 'package:simple_project/constant/url_endpoint.dart';
 import 'package:simple_project/helper/database_helper.dart';
 
@@ -26,6 +28,8 @@ class DetailBookRepository extends BaseRepository {
 
       if (data == null) {
         database.storeDataBook(body);
+      } else if (data != null) {
+        database.removeDataBook(body);
       }
 
       return {"success": true, "data": data};

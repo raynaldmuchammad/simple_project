@@ -13,3 +13,12 @@ class DetailBookLoaded extends DetailBookState {
   @override
   List<Object?> get props => [];
 }
+
+class DetailBookAddedFavorite extends DetailBookState {
+  final bool isFavorite;
+
+  DetailBookAddedFavorite({required this.isFavorite});
+
+  @override
+  List<Object?> get props => [isFavorite];
+}

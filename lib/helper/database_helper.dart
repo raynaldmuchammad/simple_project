@@ -36,6 +36,24 @@ class DatabaseHelper {
     await boxCollection.put(params['book'].id.toString(), book.toJson());
   }
 
+  dynamic removeDataBook(params) async {
+    final appDocumentDirectory = await getApplicationDocumentsDirectory();
+    final boxPath = '${appDocumentDirectory.path}/library_bad_keys.hive';
+
+    final collection = await BoxCollection.open(
+      DbConstant.databaseName,
+      {params["collectionName"]},
+      path: boxPath,
+    );
+
+    final boxCollection = await collection.openBox<Map>(
+      params['collectionName'],
+    );
+
+    var data = await boxCollection.delete(params['book'].id.toString());
+    return data;
+  }
+
   dynamic fetchDataBook(params) async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     final boxPath = '${appDocumentDirectory.path}/library_bad_keys.hive';

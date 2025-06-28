@@ -64,18 +64,21 @@ class Book {
             ? List<String>.from(data['subjects'].map((data) => data)).toList()
             : [],
         authors: data["authors"] != null
-            ? List<Person>.from(
-                data["authors"].map((author) => Person.fromJson(author)),
-              ).toList()
+            ? List<Person>.from(data["authors"].map(
+                (author) => author is Map<String, dynamic>
+                    ? Person.fromJson(author)
+                    : Person.fromJson(Map<String, dynamic>.from(author)),
+              )).toList()
             : [],
         summaries: data["summaries"] != null
             ? List<String>.from(data['summaries'].map((data) => data)).toList()
             : [],
         translators: data["translators"] != null
-            ? List<Person>.from(
-                data["translators"]
-                    .map((translator) => Person.fromJson(translator)),
-              ).toList()
+            ? List<Person>.from(data["translators"].map(
+                (translator) => translator is Map<String, dynamic>
+                    ? Person.fromJson(translator)
+                    : Person.fromJson(Map<String, dynamic>.from(translator)),
+              )).toList()
             : [],
         bookshelves: data["bookshelves"] != null
             ? List<String>.from(
@@ -89,7 +92,9 @@ class Book {
             : [],
         copyright: data["copyright"] ?? '',
         mediaType: data["media_type"] ?? '',
-        formats: Format.fromJson(data["formats"]),
+        formats: data['formats'] is Map<String, dynamic>
+            ? Format.fromJson(data["formats"])
+            : Format.fromJson(Map<String, dynamic>.from(data["formats"])),
         downloadCount: data["download_count"] ?? 0,
       );
 

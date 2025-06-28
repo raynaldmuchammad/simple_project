@@ -14,6 +14,7 @@ class DetailBookCubit extends BaseCubit<DetailBookState> {
 
   late Map<String, dynamic> formats;
   late dynamic data;
+  late bool isFavorite = false;
   Book book = Book();
 
   @override
@@ -22,6 +23,7 @@ class DetailBookCubit extends BaseCubit<DetailBookState> {
 
     if (data != null) {
       book = data["detail"];
+      postCubit();
     }
 
     emit(DetailBookLoaded());
@@ -39,7 +41,21 @@ class DetailBookCubit extends BaseCubit<DetailBookState> {
       "book": book,
       "collectionName": DbConstant.collectionFavorite,
     };
+    var response = await repository.storeData(params);
+    if (response['data'] != null) {
+      var converted = Map<String, dynamic>.from(response["data"]);
+      Book data = Book.fromJson(converted);
+      validateBook(book, data);
+    } else {
+      isFavorite = false;
+      emit(DetailBookAddedFavorite(isFavorite: isFavorite));
+    }
+  }
 
-    await repository.storeData(params);
+  FutureOr<void> validateBook(Book current, Book selected) {
+    if (current.id == selected.id) {
+      isFavorite = true;
+      emit(DetailBookAddedFavorite(isFavorite: isFavorite));
+    }
   }
 }

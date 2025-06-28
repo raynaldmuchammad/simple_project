@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_project/component/data/models/format.dart';
 import 'package:simple_project/constant/utils.dart';
+import 'package:simple_project/core/app/palette.dart';
 import 'package:simple_project/modules/detail_book/bloc/detail_book_cubit.dart';
 import 'package:simple_project/modules/detail_book/bloc/detail_book_state.dart';
 
@@ -29,22 +30,6 @@ class DetailBookPageState extends State<DetailBookPage> {
             imageUrl = formats.image!;
             names = cubit.book.authors!.map((e) => e.name).toList();
           }
-
-          // Positioned(
-          //   width: mediaQuery.width,
-          //   height: mediaQuery.height / 1.5,
-          //   child: Container(
-          //     width: Util.baseWidthHeight72,
-          //     height: Util.baseWidthHeight72,
-          //     decoration: BoxDecoration(
-          //       shape: BoxShape.circle,
-          //     ),
-          //     child: Icon(
-          //       Icons.favorite,
-          //       size: Util.baseTextSize28,
-          //     ),
-          //   ),
-          // );
 
           return SafeArea(
             child: SingleChildScrollView(
@@ -96,7 +81,12 @@ class DetailBookPageState extends State<DetailBookPage> {
                                   cubit.postCubit();
                                 },
                                 icon: Icon(
-                                  Icons.favorite_outline,
+                                  cubit.isFavorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_outline,
+                                  color: cubit.isFavorite
+                                      ? Palette.red
+                                      : Palette.black,
                                   size: Util.baseTextSize28,
                                 ),
                               ),
