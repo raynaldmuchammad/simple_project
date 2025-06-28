@@ -1,0 +1,34 @@
+name: simple_project
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.4 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.6
+  http: ^0.13.1
+  bloc: ^7.1.0
+  intl: ^0.17.0
+  meta: ^1.3.0
+  rxdart: ^0.27.0
+  equatable: ^2.0.3
+  flutter_bloc: ^7.0.1
+  connectivity_plus: ^2.2.0
+  flutter_secure_storage: ^4.2.1
+  fluttertoast: ^8.2.8
+  grouped_list: ^6.0.0
+  date_picker_plus: ^4.1.0
+  hive: ^2.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lints: ^2.1.1
+
+flutter:
+  uses-material-design: true
