@@ -1,6 +1,8 @@
+---
 # title: Bookshelf Project
 ### description: A Flutter project for managing book collections or an e-library using BLoC and Feature-First Clean Architecture.
 ### tags: [flutter, bloc, clean-architecture, bookshelf, ffca]
+---
 
 # 📚 Bookshelf Project
 
