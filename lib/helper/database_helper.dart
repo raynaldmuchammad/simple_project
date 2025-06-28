@@ -26,4 +26,19 @@ class DatabaseHelper {
 
     await boxCollection.put(params['book'].id, params['book']);
   }
+
+  dynamic fetchData(params) async {
+    final collection = await BoxCollection.open(
+      DbConstant.databaseName,
+      {params["collectionName"]},
+      path: './',
+    );
+
+    final boxCollection = await collection.openBox<Map>(
+      params['collectionName'],
+    );
+
+    var data = await boxCollection.get(params['book'].id);
+    return data;
+  }
 }

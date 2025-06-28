@@ -93,7 +93,7 @@ class DetailBookPageState extends State<DetailBookPage> {
                               ),
                               child: IconButton(
                                 onPressed: () {
-
+                                  cubit.postCubit();
                                 },
                                 icon: Icon(
                                   Icons.favorite_outline,
