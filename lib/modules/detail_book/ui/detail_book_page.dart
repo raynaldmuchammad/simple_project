@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:simple_project/component/data/models/format.dart';
@@ -15,7 +17,7 @@ class DetailBookPageState extends State<DetailBookPage> {
   @override
   Widget build(BuildContext context) {
     Size mediaQuery = MediaQuery.of(context).size;
-    var cubit = context.read<DetailBookCubit>();
+    var cubit = context.watch<DetailBookCubit>();
     List<String?> names = [];
     Format formats;
     String imageUrl = "";
@@ -27,8 +29,12 @@ class DetailBookPageState extends State<DetailBookPage> {
         builder: (context, state) {
           if (state is DetailBookLoaded) {
             formats = cubit.book.formats!;
-            imageUrl = formats.image!;
+            imageUrl = formats.image ?? "https://placehold.co/600x400";
             names = cubit.book.authors!.map((e) => e.name).toList();
+          }
+
+          if (state is DetailBookAddedFavorite) {
+            cubit.isFavorite = state.isFavorite;
           }
 
           return SafeArea(
@@ -42,10 +48,12 @@ class DetailBookPageState extends State<DetailBookPage> {
                     Container(
                       width: mediaQuery.width,
                       height: Util.baseWidthHeight250,
-                      child: Image.network(
-                        imageUrl,
-                        fit: BoxFit.fitWidth,
-                      ),
+                      child: imageUrl.isEmpty
+                          ? Container()
+                          : Image.network(
+                              imageUrl,
+                              fit: BoxFit.fitWidth,
+                            ),
                     ),
 
                     // Title
@@ -83,7 +91,7 @@ class DetailBookPageState extends State<DetailBookPage> {
                                 icon: Icon(
                                   cubit.isFavorite
                                       ? Icons.favorite
-                                      : Icons.favorite_outline,
+                                      : Icons.favorite_border,
                                   color: cubit.isFavorite
                                       ? Palette.red
                                       : Palette.black,

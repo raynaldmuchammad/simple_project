@@ -14,8 +14,9 @@ class DetailBookCubit extends BaseCubit<DetailBookState> {
 
   late Map<String, dynamic> formats;
   late dynamic data;
-  late bool isFavorite = false;
   Book book = Book();
+  Book detailBook = Book();
+  bool isFavorite = false;
 
   @override
   FutureOr<void> initCubit() async {
@@ -23,15 +24,28 @@ class DetailBookCubit extends BaseCubit<DetailBookState> {
 
     if (data != null) {
       book = data["detail"];
-      postCubit();
+      loadCubit();
     }
-
-    emit(DetailBookLoaded());
   }
 
   @override
-  FutureOr<void> loadCubit() {
-    // load data
+  FutureOr<void> loadCubit() async {
+    emit(DetailBookLoading());
+    var params = {
+      "book": book,
+      "collectionName": DbConstant.collectionFavorite,
+    };
+    var response = await repository.fetchData(params);
+    if (response["data"] != null) {
+      var converted = Map<String, dynamic>.from(response["data"]);
+      detailBook = Book.fromJson(converted);
+      if (book.id == detailBook.id) {
+        isFavorite = true;
+      } else {
+        isFavorite = false;
+      }
+    }
+    emit(DetailBookLoaded());
   }
 
   @override
@@ -41,21 +55,19 @@ class DetailBookCubit extends BaseCubit<DetailBookState> {
       "book": book,
       "collectionName": DbConstant.collectionFavorite,
     };
+
     var response = await repository.storeData(params);
-    if (response['data'] != null) {
-      var converted = Map<String, dynamic>.from(response["data"]);
-      Book data = Book.fromJson(converted);
-      validateBook(book, data);
+    if (response['data'] == null) {
+      isFavorite = true;
+      emit(DetailBookAddedFavorite(isFavorite: isFavorite));
     } else {
       isFavorite = false;
       emit(DetailBookAddedFavorite(isFavorite: isFavorite));
     }
+    emit(DetailBookLoaded());
   }
 
   FutureOr<void> validateBook(Book current, Book selected) {
-    if (current.id == selected.id) {
-      isFavorite = true;
-      emit(DetailBookAddedFavorite(isFavorite: isFavorite));
-    }
+    //
   }
 }

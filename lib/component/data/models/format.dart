@@ -36,7 +36,7 @@ class Format {
         zip: data["application/epub+zip"] ?? '',
         ebook: data["application/x-mobipocket-ebook"] ?? '',
         textPlain: data["text/plain; charset=us-ascii"] ?? '',
-        image: data["image/jpeg"] ?? '',
+        image: data["image/jpeg"] ?? 'https://placehold.co/600x400',
         stream: data["application/octet-stream"] ?? '',
       );
 

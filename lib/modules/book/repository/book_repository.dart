@@ -13,7 +13,6 @@ class BookRepository extends BaseRepository {
 
       if (body['nextUrl'] != null) {
         params = body['nextUrl'];
-        log("Repo: $params");
       }
 
       var response = await provider.get(params);

@@ -25,12 +25,25 @@ class DetailBookRepository extends BaseRepository {
       DatabaseHelper database = DatabaseHelper();
 
       var data = await database.fetchDataBook(body);
-
       if (data == null) {
         database.storeDataBook(body);
+        return {"success": true, "data": data};
       } else if (data != null) {
         database.removeDataBook(body);
+        return {"success": true, "data": data};
       }
+
+      return {"success": true, "data": data};
+    } on Error catch (e) {
+      throw Exception("Failed to update: $e");
+    }
+  }
+
+  Future<Map<String, dynamic>> fetchData(dynamic body) async {
+    try {
+      DatabaseHelper database = DatabaseHelper();
+
+      var data = await database.fetchDataBook(body);
 
       return {"success": true, "data": data};
     } on Error catch (e) {

@@ -18,7 +18,7 @@ class DatabaseHelper {
     await collection.openBox<Map>(DbConstant.collectionFavorite);
   }
 
-  void storeDataBook(params) async {
+  dynamic storeDataBook(params) async {
     final appDocumentDirectory = await getApplicationDocumentsDirectory();
     final boxPath = '${appDocumentDirectory.path}/library_bad_keys.hive';
 
@@ -33,7 +33,8 @@ class DatabaseHelper {
     );
 
     Book book = params["book"];
-    await boxCollection.put(params['book'].id.toString(), book.toJson());
+    return await boxCollection.put(params['book'].id.toString(), book.toJson());
+
   }
 
   dynamic removeDataBook(params) async {
@@ -69,6 +70,24 @@ class DatabaseHelper {
     );
 
     var data = await boxCollection.get(params['book'].id.toString());
+    return data;
+  }
+
+  Future<Map<String, dynamic>> fetchDataBooks(params) async {
+    final appDocumentDirectory = await getApplicationDocumentsDirectory();
+    final boxPath = '${appDocumentDirectory.path}/library_bad_keys.hive';
+
+    final collection = await BoxCollection.open(
+      DbConstant.databaseName,
+      {params["collectionName"]},
+      path: boxPath,
+    );
+
+    final boxCollection = await collection.openBox<Map>(
+      params['collectionName'],
+    );
+
+    var data = await boxCollection.getAllValues();
     return data;
   }
 }
