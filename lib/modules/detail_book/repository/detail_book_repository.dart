@@ -22,10 +22,10 @@ class DetailBookRepository extends BaseRepository {
     try {
       DatabaseHelper database = DatabaseHelper();
 
-      var data = await database.fetchData(body);
+      var data = await database.fetchDataBook(body);
 
       if (data == null) {
-        return {"success": false};
+        database.storeDataBook(body);
       }
 
       return {"success": true, "data": data};

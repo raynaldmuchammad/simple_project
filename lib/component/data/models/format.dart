@@ -1,9 +1,25 @@
+import 'package:hive/hive.dart';
+
+part 'format.g.dart';
+
+@HiveType(typeId: 2)
 class Format {
+  @HiveField(0)
   late String? textHtml;
+
+  @HiveField(1)
   late String? zip;
+
+  @HiveField(2)
   late String? ebook;
+
+  @HiveField(3)
   late String? textPlain;
+
+  @HiveField(4)
   late String? image;
+
+  @HiveField(5)
   late String? stream;
 
   Format({

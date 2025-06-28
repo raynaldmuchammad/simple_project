@@ -1,6 +1,16 @@
+import 'package:hive/hive.dart';
+
+part 'person.g.dart';
+
+@HiveType(typeId: 1)
 class Person {
+  @HiveField(0)
   late String? name;
+
+  @HiveField(1)
   late int? birthYear;
+
+  @HiveField(2)
   late int? deathYear;
 
   Person({
@@ -14,4 +24,10 @@ class Person {
         birthYear: data["birthYear"] ?? 0,
         deathYear: data["deathYear"] ?? 0,
       );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "birthYear": birthYear,
+        "deathYear": deathYear,
+      };
 }

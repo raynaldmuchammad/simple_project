@@ -45,5 +45,7 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSDocumentsFolderUsageDescription</key>
+    <string>Aplikasi ini memerlukan akses ke dokumen untuk menyimpan data secara lokal.</string>
 </dict>
 </plist>

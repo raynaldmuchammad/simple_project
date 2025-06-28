@@ -1,4 +1,9 @@
+import 'dart:developer';
+
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:simple_project/component/data/models/book.dart';
 import 'package:simple_project/constant/db_constant.dart';
 
 class DatabaseHelper {
@@ -13,32 +18,39 @@ class DatabaseHelper {
     await collection.openBox<Map>(DbConstant.collectionFavorite);
   }
 
-  void storeData(params) async {
+  void storeDataBook(params) async {
+    final appDocumentDirectory = await getApplicationDocumentsDirectory();
+    final boxPath = '${appDocumentDirectory.path}/library_bad_keys.hive';
+
     final collection = await BoxCollection.open(
       DbConstant.databaseName,
       {params["collectionName"]},
-      path: './',
+      path: boxPath,
     );
 
     final boxCollection = await collection.openBox<Map>(
       params['collectionName'],
     );
 
-    await boxCollection.put(params['book'].id, params['book']);
+    Book book = params["book"];
+    await boxCollection.put(params['book'].id.toString(), book.toJson());
   }
 
-  dynamic fetchData(params) async {
+  dynamic fetchDataBook(params) async {
+    final appDocumentDirectory = await getApplicationDocumentsDirectory();
+    final boxPath = '${appDocumentDirectory.path}/library_bad_keys.hive';
+
     final collection = await BoxCollection.open(
       DbConstant.databaseName,
       {params["collectionName"]},
-      path: './',
+      path: boxPath,
     );
 
     final boxCollection = await collection.openBox<Map>(
       params['collectionName'],
     );
 
-    var data = await boxCollection.get(params['book'].id);
+    var data = await boxCollection.get(params['book'].id.toString());
     return data;
   }
 }

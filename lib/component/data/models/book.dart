@@ -1,18 +1,45 @@
 import 'package:simple_project/component/data/models/format.dart';
 import 'package:simple_project/component/data/models/person.dart';
+import 'package:hive/hive.dart';
 
+part 'book.g.dart';
+
+@HiveType(typeId: 0)
 class Book {
+  @HiveField(0)
   late int? id;
+
+  @HiveField(1)
   late String? title;
+
+  @HiveField(2)
   late List<String>? subjects;
+
+  @HiveField(3)
   late List<Person>? authors;
+
+  @HiveField(4)
   late List<String>? summaries;
+
+  @HiveField(5)
   late List<Person>? translators;
+
+  @HiveField(6)
   late List<String>? bookshelves;
+
+  @HiveField(7)
   late List<String>? languages;
+
+  @HiveField(8)
   late bool? copyright;
+
+  @HiveField(9)
   late String? mediaType;
+
+  @HiveField(10)
   late Format? formats;
+
+  @HiveField(11)
   late int? downloadCount;
 
   Book({
@@ -69,15 +96,27 @@ class Book {
   Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
-        "subjects": subjects,
-        "authors": authors,
-        "summaries": summaries,
-        "translators": translators,
-        "bookshelves": bookshelves,
-        "languages": languages,
+        "subjects": subjects != null
+            ? subjects!.map((subject) => subject).toList()
+            : null,
+        "authors": authors != null
+            ? authors!.map((author) => author.toJson()).toList()
+            : null,
+        "summaries": summaries != null
+            ? summaries!.map((summaries) => summaries).toList()
+            : null,
+        "translators": translators != null
+            ? translators!.map((translator) => translator.toJson()).toList()
+            : null,
+        "bookshelves": bookshelves != null
+            ? bookshelves!.map((bookshelves) => bookshelves).toList()
+            : null,
+        "languages": languages != null
+            ? languages!.map((language) => language).toList()
+            : null,
         "copyright": copyright,
         "media_type": mediaType,
-        "formats": formats,
+        "formats": formats!.toJson(),
         "download_count": downloadCount,
       };
 }

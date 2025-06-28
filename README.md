@@ -1,16 +1,16 @@
-# simple_project
+# Bookshelf Project
 
-A new Flutter project.
+A simple project to checking book collection / e-library
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
+- Architecture: BLoC (Business Logic Component)
+- Boilerplate project based on Feature-First Clean Architecture (FFCA)
+- 
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+A few resources to get you started if this is your first cloning Flutter project:
+- Clone project
+- Open project using Android Studio / Vs Code
+- Run command #flutter pub get
+- Run command #flutter pub run build_runner build

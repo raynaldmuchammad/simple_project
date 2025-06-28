@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:simple_project/component/bloc/base_cubit.dart';
 import 'package:simple_project/component/data/models/book.dart';
@@ -35,9 +36,10 @@ class DetailBookCubit extends BaseCubit<DetailBookState> {
   FutureOr<void> postCubit() async {
     // Store data to local storage
     var params = {
-      "data": book,
+      "book": book,
       "collectionName": DbConstant.collectionFavorite,
     };
+
     await repository.storeData(params);
   }
 }
